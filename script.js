@@ -85,7 +85,7 @@ function initJungleWorld() {
         hangingVines.push({
             x: i * 160 + Math.random() * 50,
             y: 0,
-                      length: 120 + Math.random() * 160
+            length: 120 + Math.random() * 160
         });
     }
 
@@ -108,7 +108,7 @@ function renderStaticScene() {
         ctx.fillStyle = tree.color;
         ctx.fillRect(tree.x, 0, tree.width, canvas.height);
         ctx.fillStyle = "rgba(0,0,0,0.15)";
-      ctx.fillRect(tree.x + 5, 0, tree.width * 0.15, canvas.height);
+        ctx.fillRect(tree.x + 5, 0, tree.width * 0.15, canvas.height);
         ctx.fillRect(tree.x + tree.width - 8, 0, 4, canvas.height);
     });
 
@@ -146,7 +146,7 @@ function renderStaticScene() {
         ctx.strokeStyle = "#385e38"; 
         ctx.lineWidth = 10;
     });
-  
+
     // Top Foliage Ceiling
     ctx.fillStyle = "#092412";
     canopyLeaves.forEach(leaf => {
@@ -181,7 +181,7 @@ function handleInputEngine(e) {
 function spawnEntities() {
     const randomLane = Math.floor(Math.random() * 3);
     const targetY = vineYPositions[randomLane];
-      const spawnX = canvas.width + 80;
+    const spawnX = canvas.width + 80;
 
     if (Math.random() > 0.4) {
         // High density bananas
@@ -217,9 +217,9 @@ function drawRealisticMonkey(ctx, m) {
     ctx.moveTo(-16, 2);
     ctx.bezierCurveTo(-26, -18, -12, -32, -28, -26);
     ctx.stroke();
-  
+
     // Climbing Limbs
-  ctx.fillStyle = "#3d2712"; 
+    ctx.fillStyle = "#3d2712"; 
     ctx.fillRect(-12 - limbSwing * 4, 12, 6, 10); 
     ctx.fillRect(10 + limbSwing * 4, 12, 6, 10);  
     ctx.fillRect(-6 + limbSwing * 3, -12, 6, 9);  
@@ -255,6 +255,7 @@ function drawRealisticMonkey(ctx, m) {
 
     ctx.fillStyle = "#2d1b0d";
     ctx.fillRect(12, -5, 2, 2);
+
     ctx.restore();
 }
 
@@ -292,7 +293,6 @@ function drawMichaelJacksonChaser(ctx, c, showSpeechBubble = false) {
     ctx.lineTo(-5, 2);   
     ctx.closePath();
     ctx.fill();
-  
 
     // White Shirt fill
     ctx.fillStyle = "#ffffff";
@@ -318,10 +318,10 @@ function drawMichaelJacksonChaser(ctx, c, showSpeechBubble = false) {
     ctx.roundRect(-9, -24, 18, 26, [5, 5, 2, 2]);
     ctx.fill();
 
-    // 5. SHORTER CURLY BROWN HAIR
-    ctx.fillStyle = "#5c3a21"; 
+    // 5. SHORTER CURLY DARKER BROWN HAIR (Adjusted color here)
+    ctx.fillStyle = "#2b1a0e"; 
     ctx.beginPath();
-    // Compact crop clusters that frame the neck tightly instead of dropping down to the shoulders
+    // Compact crop clusters framing the head closely
     ctx.arc(-9, -18, 6, 0, Math.PI * 2);
     ctx.arc(-10, -10, 6, 0, Math.PI * 2);
     ctx.arc(-8, -3, 5.5, 0, Math.PI * 2);
@@ -335,16 +335,16 @@ function drawMichaelJacksonChaser(ctx, c, showSpeechBubble = false) {
     ctx.beginPath(); ctx.moveTo(7, -10); ctx.lineTo(11, -10); ctx.stroke(); 
 
     // 6. REALISTIC BLACK SUNGLASSES LAYER
-    ctx.fillStyle = "#161616"; // Lens body
+    ctx.fillStyle = "#161616"; 
     ctx.beginPath();
     ctx.roundRect(1, -17, 10, 6, 2);
     ctx.fill();
-    // Metal glass frame bridge bar over the nose
+    // Metal frame bridge bar
     ctx.strokeStyle = "#080808";
     ctx.lineWidth = 1.8;
     ctx.beginPath();
     ctx.moveTo(1, -14);
-    ctx.lineTo(-9, -13); // Glasses arm wrapping back behind ear curls
+    ctx.lineTo(-9, -13); 
     ctx.stroke();
 
     // 7. Dynamic Speech Bubble Engine
@@ -364,7 +364,7 @@ function drawMichaelJacksonChaser(ctx, c, showSpeechBubble = false) {
         ctx.beginPath();
         ctx.moveTo(35, 38);
         ctx.lineTo(25, 48);
-ctx.lineTo(45, 38);
+        ctx.lineTo(45, 38);
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
@@ -415,13 +415,13 @@ function startGame() {
     bananasCollected = 0;
     scrollSpeed = baseSpeed;
     currentLane = 1;
-    runStartTime = Date.now(); // Mark active run start timestamp
+    runStartTime = Date.now(); 
 
     monkey.y = vineYPositions[1];
     monkey.targetY = vineYPositions[1];
     chaser.y = vineYPositions[1];
     chaser.targetY = vineYPositions[1];
-    chaser.inputQueue = []; // Reset jump memory log
+    chaser.inputQueue = []; 
     
     scoreVal.innerText = distanceScore;
     bananaCountVal.innerText = bananasCollected;
@@ -452,28 +452,28 @@ function gameLoop() {
     if (!gameActive) return;
 
     const currentTime = Date.now();
-  
-    // Process Michael's Delayed Step Input Queue (1-second time offset filter)
+
+    // Process Michael's Delayed Step Input Queue (1-second delay tracking)
     if (chaser.inputQueue.length > 0) {
         if (currentTime >= chaser.inputQueue[0].executeAt) {
             chaser.targetY = chaser.inputQueue[0].targetY;
-            chaser.inputQueue.shift(); // Remove action once triggered
+            chaser.inputQueue.shift(); 
         }
     }
 
-    // Smooth vertical transitions to the current target vine lane
+    // Smooth vertical lane transitions
     monkey.y += (monkey.targetY - monkey.y) * 0.24;
-    chaser.y += (chaser.targetY - chaser.y) * 0.18; // Slightly faster snap to feel like a jump landing
+    chaser.y += (chaser.targetY - chaser.y) * 0.18; 
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     renderStaticScene();
 
-    // Scroll Background Lists of Trees 
+    // Scroll Background Trees
     backgroundTrees.forEach(tree => {
         tree.x -= scrollSpeed * tree.speedFactor;
         if (tree.x < -tree.width) tree.x = canvas.width + Math.random() * 60;
     });
-  
+
     // Scroll Ceiling Canopy Foliage
     canopyLeaves.forEach(leaf => {
         leaf.x -= scrollSpeed * 0.2;
@@ -486,7 +486,7 @@ function gameLoop() {
         if (hv.x < -30) hv.x = canvas.width + 50 + Math.random() * 40;
     });
 
-    // Generation frequency loop
+    // Spawn elements rate loop
     if (Math.random() < 0.05 && bananaCache.length < 15) {
         spawnEntities();
     }
@@ -497,7 +497,7 @@ function gameLoop() {
     for (let i = horizontalVines.length - 1; i >= 0; i--) {
         let v = horizontalVines[i];
         v.x -= scrollSpeed;
-      
+
         if (v.isGap) {
             ctx.fillStyle = "#0c1712"; 
             ctx.fillRect(v.x, v.y - 8, v.width, 16);
@@ -522,3 +522,37 @@ function gameLoop() {
         triggerGameOver();
         return;
     }
+
+    // Scroll & Process Bananas
+    for (let i = bananaCache.length - 1; i >= 0; i--) {
+        let b = bananaCache[i];
+        b.x -= scrollSpeed;
+        drawBanana(ctx, b);
+
+        const deltaX = Math.abs(monkey.x - b.x);
+        const deltaY = Math.abs((monkey.y - 18) - b.y);
+        if (deltaX < 32 && deltaY < 30) {
+            bananasCollected++;
+            bananaCountVal.innerText = bananasCollected; 
+            bananaCache.splice(i, 1);
+            continue;
+        }
+
+        if (b.x < -100) bananaCache.splice(i, 1);
+    }
+
+    // Render sprites. Speech bubble persists for 5 seconds into active run.
+    const displayBubbleTimeLimit = 5000;
+    const runningDuration = currentTime - runStartTime;
+    const shouldKeepBubbleVisible = runningDuration < displayBubbleTimeLimit;
+
+    drawMichaelJacksonChaser(ctx, chaser, shouldKeepBubbleVisible); 
+    drawRealisticMonkey(ctx, monkey);
+
+    // Dynamic acceleration scaling
+    distanceScore += 0.2;
+    scrollSpeed = baseSpeed + (distanceScore / 600); 
+    scoreVal.innerText = Math.floor(distanceScore);
+
+    requestAnimationFrame(gameLoop);
+}
