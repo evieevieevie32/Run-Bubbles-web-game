@@ -22,7 +22,10 @@
         <p class="controls-hint">Controls: Use Up & Down Arrow Keys to leap between vines</p>
     </div>
 
-    <div id="gameOverScreen" class="overlay n gold-btn" onclick="startGame()">Restart</button>
+    <div id="gameOverScreen" class="overlay screen" style="display: none;">
+        <h1 class="fail text">Michael Caought You! Oh No!!!: (</h1>
+        <div class="score-display">BANANAS COLLECTED: <span id="finalBananas">0</span></div>
+        <button class="btn gold-btn" onclick="startGame()">Restart</button>
     </div>
 
     <canvas id="gameCanvas" width="900" height="500"></canvas>
