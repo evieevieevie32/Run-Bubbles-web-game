@@ -1,11 +1,32 @@
-        <div class="score-display">FINAL DISTANCE: <span id="finalScore">0</span>m</div>
-        <div class="banana-display">BANANAS COLLECTED: <span id="finalBananas">0</span></div>
-        <button class="btn gold-btn" onclick="startGame()">Restart</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jungle Escape: Bubbles' Great Vine Run</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="gameContainer">
+    <div id="hud">
+        <div id="scoreBox">DISTANCE: <span id="scoreVal">0</span>m</div>
+        <div id="bananaBox">🍌 BANANAS: <span id="bananaCount">0</span></div>
+    </div>
+
+    <div id="startScreen" class="overlay-screen">
+        <h1 class="glow-text">Vine Climber</h1>
+        <p class="subtitle">Swing across vines, raid the banana cache, and escape!</p>
+        <button class="btn gold-btn" onclick="startGame()">Start Run</button>
+        <p class="controls-hint">Controls: Use Up & Down Arrow Keys to leap between vines</p>
+    </div>
+
+    <div id="gameOverScreen" class="overlay n gold-btn" onclick="startGame()">Restart</button>
     </div>
 
     <canvas id="gameCanvas" width="900" height="500"></canvas>
 </div>
 
 <script src="game.js"></script>
-</body>
+</body>a
 </html>
